@@ -1,0 +1,174 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-sans: "DM Sans", system-ui, sans-serif;
+  --font-condensed: "Bebas Neue", "Space Grotesk", sans-serif;
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+
+  --color-night: var(--night);
+  --color-slate: var(--slate);
+  --color-paraba: var(--paraba);
+  --color-paraba-deep: var(--paraba-deep);
+  --color-andino: var(--andino);
+  --color-ocre: var(--ocre);
+  --color-cream: var(--cream);
+  --color-ivory: var(--ivory);
+  --color-stone: var(--stone);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
+
+:root {
+  --radius: 1rem;
+  --night: oklch(0.21 0.03 222);
+  --slate: oklch(0.3 0.03 222);
+  --paraba: oklch(0.56 0.225 27);
+  --paraba-deep: oklch(0.42 0.17 22);
+  --andino: oklch(0.76 0.16 75);
+  --ocre: oklch(0.72 0.155 70);
+  --cream: oklch(0.966 0.012 85);
+  --ivory: oklch(0.99 0.008 90);
+  --stone: oklch(0.92 0.013 85);
+
+  --background: var(--cream);
+  --foreground: var(--night);
+  --card: var(--ivory);
+  --card-foreground: var(--night);
+  --popover: var(--ivory);
+  --popover-foreground: var(--night);
+  --primary: var(--paraba);
+  --primary-foreground: var(--ivory);
+  --secondary: var(--night);
+  --secondary-foreground: var(--cream);
+  --muted: var(--stone);
+  --muted-foreground: oklch(0.45 0.025 222);
+  --accent: var(--andino);
+  --accent-foreground: var(--night);
+  --destructive: var(--paraba);
+  --destructive-foreground: var(--ivory);
+  --border: oklch(0.21 0.03 222 / 14%);
+  --input: oklch(0.21 0.03 222 / 20%);
+  --ring: var(--andino);
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 { font-family: var(--font-display); }
+  :focus-visible { outline: 3px solid var(--andino); outline-offset: 3px; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; }
+  }
+}
+
+@utility display-xl {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 0.86;
+  letter-spacing: -0.045em;
+  text-transform: uppercase;
+  font-size: clamp(3.2rem, 10vw, 11rem);
+}
+@utility display-lg {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 0.88;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  font-size: clamp(2.6rem, 7vw, 7.5rem);
+}
+@utility display-md {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  font-size: clamp(1.8rem, 3.6vw, 3.4rem);
+}
+@utility numeral {
+  font-family: var(--font-condensed);
+  line-height: 0.8;
+  letter-spacing: -0.01em;
+}
+@utility eyebrow {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+@utility link-line {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0; bottom: -4px;
+    height: 2px; width: 100%;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.35s cubic-bezier(.7,0,.2,1);
+  }
+  &:hover::after, &[data-status="active"]::after { transform: scaleX(1); transform-origin: left; }
+}
+@utility marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 38s linear infinite;
+}
+@utility container-wide {
+  width: 100%;
+  max-width: 1680px;
+  margin-inline: auto;
+  padding-inline: clamp(1.1rem, 4vw, 4rem);
+}
+
+@keyframes marquee { to { transform: translateX(-50%); } }
+/* Refinamientos editoriales: curvas coherentes y contraste del header */
+header a, header button { text-shadow: none; }
+@media (min-width:1024px) { header:not(.scrolled) { background-color: var(--night); } }
+
+/* Headline legibility and viewport-safe sizing. Keeps the editorial style. */
+.headline-safe { overflow: visible; max-width: 100%; overflow-wrap: anywhere; }
+.page-heading { font-size: clamp(2.65rem, 7.2vw, 7.7rem); line-height: 1.04; letter-spacing: -.055em; }
+.page-heading > span { overflow: visible; padding-block: .045em; }
+@media (max-width: 640px) { .page-heading { font-size: clamp(2.25rem, 10vw, 4.1rem); line-height: 1.05; } }
+/* Make the hero visible immediately without sacrificing the animated reveal. */
+@media (prefers-reduced-motion: reduce) { .headline-safe * { transform: none !important; opacity: 1 !important; } }
